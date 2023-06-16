@@ -29,8 +29,4 @@ class Event < ApplicationRecord
   def future?
     !past?
   end
-
-  def woman_event?(current_user)
-    return only_woman && !current_user.woman?
-  end
 end
