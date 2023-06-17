@@ -12,7 +12,7 @@
               </h5>
             </div>
             <h1>
-              <%= @event.title %>
+              <%= @event.only_woman ? "#{@event.title} ※女性限定" : @event.title %>
             </h1>
             <% if logged_in? %>
               <div class="ms-auto">
@@ -92,6 +92,8 @@
                               method: :delete,
                               data: { confirm: 'キャンセルします' }
                   %>
+                <% elsif @event.only_woman && ( current_user.other? || current_user.man? ) %>
+                  <p><strong>女性限定イベントです</strong></p>
                 <% else %>
                   <%= link_to 'このもくもく会に参加する',
                               event_attendance_url(@event),
@@ -111,9 +113,9 @@
           参加者（<%= @event.attendees.size %>人）
         </div>
         <div class="card-body">
-           <ul class="list-unstyled">
-             <%= render partial: 'events/attendee', collection: @event.attendees %>
-           </ul>
+          <ul class="list-unstyled">
+            <%= render partial: 'events/attendee', collection: @event.attendees %>
+          </ul>
         </div>
       </div>
 

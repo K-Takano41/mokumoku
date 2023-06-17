@@ -9,6 +9,14 @@
     <%= f.text_area :content, class: 'form-control', rows: 10 %>
   </div>
   <div class="mb-3">
+    <% if current_user.woman? %>
+      <div class="form-check form-switch">
+        <%= f.check_box :only_woman, { class: "form-check-input" }, "true", "false" %>
+        <%= f.label :only_woman %>
+      </div>
+    <% end %>
+  </div>
+  <div class="mb-3">
     <%= f.label :held_at %>
     <%= f.datetime_field :held_at, class: 'form-control' %>
   </div>
